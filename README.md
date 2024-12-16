@@ -1,66 +1,135 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+<h1 align="center">
+API RESTful
+</h1>
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Sobre
 
-## About Laravel
+Uma API desenvolvida em PHP/Laravel_11 seguindo os padrões RESTful no CRUD da aplicação. Também seguindo práticas de versionamento de banco de dados utilizando migrations.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Os arquivos mais importantes são routes/api.php, Controllers/NewsController.php, Models/News.php e diretório database/migrations.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+São os arquivos/diretórios que estão ligados diretamente no funcionamento base da aplicação.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Rodando projeto
+### Pré-requisitos
+- Git
+- Docker
 
-## Learning Laravel
+### Passo a Passo
+- 1- Clonar o repositório
+```URL
+https://github.com/nepogabriel/php-laravel-g4f.git
+```
+- 2- Entre no diretório 
+```
+cd nome-do-diretorio
+```
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Endpoints
+### 1. Listar todas as notícias
+- Método: GET
+- Rota: /api/news
+- Retorna todas as notícias cadastradas.
 
-## Laravel Sponsors
+- Exemplo de resposta:
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+```JSON
+[
+    {
+        "id": 1,
+        "titulo": "Twitter",
+        "descricao": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book",
+        "created_at": "2024-12-16T03:14:09.000000Z",
+        "updated_at": "2024-12-16T03:47:51.000000Z"
+    },
+    {
+        "id": 2,
+        "titulo": "Venda do Google Chrome",
+        "descricao": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book",
+        "created_at": "2024-12-16T03:14:49.000000Z",
+        "updated_at": "2024-12-16T03:14:49.000000Z"
+    }
+]
+```
 
-### Premium Partners
+### 2. Criar uma nova notícia
+- Método: POST
+- Rota: /api/news
+- Cria uma nova notícia.
+- Parâmetros esperados:
+    - titulo: Título da notícia (string, obrigatório).
+    - descricao: Descrição da notícia (string, obrigatório).
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+- Exemplo de corpo da requisição (JSON):
 
-## Contributing
+```JSON
+{
+    "titulo": "Vendas",
+    "descricao": "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+}
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+- Exemplo de resposta:
 
-## Code of Conduct
+```JSON
+{
+    "message": "Notícia criada com sucesso!"
+}
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### 3. Atualizar uma notícia
+- Método: PUT
+- Rota: /api/news/{id}
+- Atualiza uma notícia existente.
+- Parâmetros esperados:
+    - titulo: Título da notícia (string, obrigatório).
+    - descricao: Descrição da notícia (string, obrigatório).
 
-## Security Vulnerabilities
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+- Exemplo de corpo da requisição (JSON):
 
-## License
+```JSON
+{
+    "titulo": "Vendas de carros",
+    "descricao": "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+}
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+- Exemplo de resposta:
+
+```JSON
+{
+    "message": "Notícia atualizada com sucesso!"
+}
+```
+
+### 4. Listar uma notícia específica
+- Método: GET
+- Rota: /api/news/{id}
+- Retorna uma notícia específica com base no ID.
+
+- Exemplo de resposta:
+
+```JSON
+{
+    "id": 2,
+    "titulo": "Internet",
+    "descricao": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+    "created_at": "2024-12-16T02:57:56.000000Z",
+    "updated_at": "2024-12-16T03:36:45.000000Z"
+}
+```
+
+### 5. Deletar uma notícia
+- Método: DELETE
+- Rota: /api/news/{id}
+- Deleta uma notícia pelo ID.
+- Exemplo de resposta:
+
+```JSON
+{
+    "message": "Notícia deletada com sucesso."
+}
+```
