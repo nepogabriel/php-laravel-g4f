@@ -28,25 +28,17 @@ class NewsController extends Controller
         ], 201);
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
-        //
+        $news = News::find($id);
+
+        if (!$news) {
+            return response()->json(['message' => 'Notícia não encontrada.'], 404);
+        }
+
+        return response()->json($news, 200);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
         $news = News::find($id);
