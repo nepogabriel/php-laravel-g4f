@@ -7,9 +7,6 @@ use Illuminate\Http\Request;
 
 class NewsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         $news = News::all();
@@ -52,14 +49,27 @@ class NewsController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $news = News::find($id);
+
+        if (!$news) {
+            return response()->json(['message' => 'Notícia não encontrada.'], 404);
+        }
+
+        $news->update($request->all());
+
+        return response()->json(['message' => 'Notícia atualizada com sucesso!'], 200);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
-        //
+        $news = News::find($id);
+
+        if (!$news) {
+            return response()->json(['message' => 'Notícia não encontrada.'], 404);
+        }
+
+        $news->delete();
+
+        return response()->json(['message' => 'Notícia deletada com sucesso.'], 200);
     }
 }
