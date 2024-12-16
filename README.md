@@ -61,6 +61,11 @@ php artisan key:generate
 php artisan migrate
 ```
 
+- 9- Link de acesso
+```
+http://localhost:8181/
+```
+
 ## Endpoints
 ### 1. Listar todas as notícias
 - Método: GET
