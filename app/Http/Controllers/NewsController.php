@@ -12,23 +12,23 @@ class NewsController extends Controller
      */
     public function index()
     {
-        return News::all();
+        $news = News::all();
+
+        return response()->json($news, 200);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $validate = $request->validate([
+            'titulo' => 'required',
+            'descricao' => 'required',
+        ]);
+
+        $news = News::create($validate);
+
+        return response()->json([
+            'message' => 'Notícia criada com sucesso!'
+        ], 201);
     }
 
     /**
