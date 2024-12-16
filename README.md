@@ -20,12 +20,46 @@ São os arquivos/diretórios que estão ligados diretamente no funcionamento bas
 ```URL
 https://github.com/nepogabriel/php-laravel-g4f.git
 ```
+
 - 2- Entre no diretório 
 ```
 cd nome-do-diretorio
 ```
 
+- 3- Configure variáveis de ambiente
+```
+cp .env.example .env
+```
 
+- 4- Instale as dependências
+```CMD
+docker run --rm \
+    -u "$(id -u):$(id -g)" \
+    -v "$(pwd):/var/www/html" \
+    -w /var/www/html \
+    laravelsail/php84-composer:latest \
+    composer install --ignore-platform-reqs
+```
+
+- 5- Inicie o container
+```
+./vendor/bin/sail up -d
+```
+
+- 6- Acesse o container
+```
+docker exec -it php-laravel-g4f-laravel.test-1 bash
+```
+
+- 7- Dentro do container execute para gerar uma chave do laravel
+```
+php artisan key:generate
+```
+
+- 8- Dentro do container execute para criar as tabelas do banco de dados
+```
+php artisan migrate
+```
 
 ## Endpoints
 ### 1. Listar todas as notícias
